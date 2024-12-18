@@ -54,35 +54,38 @@
         </div>
     </div>
     <script>
-        let form = document.getElementById("form");
-        let fname = document.getElementById("fname").value;
-        let lname = document.getElementById("lname").value;
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
+        let form = document.querySelector("form"); 
+        let fnameInput = document.querySelector("input[name='fname']"); 
+        let lnameInput = document.querySelector("input[name='lname']"); 
+        let emailInput = document.querySelector("input[name='email']"); 
+        let passwordInput = document.querySelector("input[name='password']"); 
+
+    form.onsubmit = function (e) {
+        let fname = fnameInput.value.trim(); 
+        let lname = lnameInput.value.trim(); 
+        let email = emailInput.value.trim();
+        let password = passwordInput.value.trim();
 
         form.onsubmit = function (e) {
-            // First Name Validation
-            if (!/^[A-Za-z]+$/.test(fname)) {
+
+            if (/^[A-Za-z]+$/.test(fname)) {
             alert("First name must contain only letters.");
             e.preventDefault();
             return;
             }
 
-            // Last Name Validation
             if (!/^[A-Za-z]+$/.test(lname)) {
             alert("Last name must contain only letters.");
             e.preventDefault();
             return;
             }
 
-            // Email Validation
             if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
             alert("Please enter a valid email address.");
             e.preventDefault();
             return;
             }
 
-            // Password Validation
             if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
             alert(
                 "Password must be at least 8 characters long, contain at least one letter, one number, and one special character."
@@ -91,23 +94,70 @@
             return;
         }
     }
-
+    }
     </script>
 </body>
 </html>
 
 <?php
-//ajouter une nouvelle personne à la base des données
+/*
+to ensure that the code inside runs onnly when the form submission 
+button signup is pressed , how?
+-  by checking if the form has been submitted using the POST method 
+-  isset() checks whether a variable is set and not NULL
+*/
 if (isset($_POST['signup'])) {
+    /*
+    We retrieve the name entered in the form and we escape special chars
+    to make it safe for use 
+    - mysqli_real_escape_string(): excapes special chars to prevent sql inj
+    - it takes two parameters : 
+        a. a valid database connection object 
+        b. the raw user input from the form
+    - it gives back a sanitized version of the input data
+    */
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
+    /*
+    here we dont need that function , because whatever the input data 
+    we need just to hash it */
     $id_role = 2;
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+    /*
+    this function hashes the user's pass securely so that its not stored in plain 
+    text in the database
+    it takes two param:
+    - the plain text as entered by the user
+    - a constant that seleects the default hashing algorithm (bycrypt)
+    the algos of hashing : 
+        - bycrypt
+        - crypt_blowfish
+        - argon2i
+        - argon2id 
+    */
     $sql = "INSERT INTO users (nom, prenom, email, password, id_role) VALUES (?, ?, ?, ?, ?)";
+    /*
+    normal insertion but this time with prepared statements 
+    1. we need to create an sql query to insert a new record into users tabel
+       we used placeholders ? and each of them will be replaced by actual data later
+    2. then we prepare the sql stmt for execution 
+       taking two params :
+        - the database conn object
+        - the sql query with placeholders
+       it outputs a prepared statement object $stmt stored int his var that can 
+       be executed later 
+    3. if the sql statement was successfully prepared great next step return true false
+    4. then we nedd to bind actual values to the placeholders in the prepared statement 
+       we take the prepared statement object , a string that specifies the data types 
+       of each paleceholder (string , interger), the actual values that are stored in each 
+       variable after they were being escaped from special chars
+    5. theen we executes the prepared statement with the bound param 
+       if the query is succ it returns true 
+    6. then we close the prepared statement and frees its ressources
+    */
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
@@ -129,3 +179,12 @@ if (isset($_POST['signup'])) {
 
 mysqli_close($conn);
 ?>
+<!--  Prepared statements
+  process : 
+    1. prepare : n SQL statement template is created and sent to the database. 
+    Certain values are left unspecified, called parameters (labeled "?").
+    Example: INSERT INTO MyGuests VALUES(?, ?, ?)
+    2. The database parses, compiles, and performs query optimization on the SQL statement template, 
+    and stores the result without executing it
+    3. Execute: At a later time, the application binds the values to the parameters, and the database executes the statement.
+-->

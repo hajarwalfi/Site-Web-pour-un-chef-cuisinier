@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 
-<body class="font-sans bg-black">
+<body class="font-sans bg-black min-h-screen">
 
     <nav class="bg-black shadow-md">
         <!-- Normal Menu -->
@@ -30,7 +30,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex space-x-8">
-                    <a href="../pages/home.php" class=" hover:text-blue-500 font-medium">Home</a>
+                    <a href="../pages/home.php" class=" hover:text-decoration hover:underline font-medium">Home</a>
                     <a href="../pages/menu.php" class=" hover:text-blue-500 font-medium">Menu</a>
                     <a href="#" class=" hover:text-blue-500 font-medium">Contact</a>
                     <a href="#" class=" hover:text-blue-500 font-medium">About</a>
@@ -57,15 +57,24 @@
             <a href="../pages/menu.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Menu</a>
             <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact</a>
             <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
-            <div class="px-4 py-2">
-                <button class="bg-blue-500 text-white w-full px-4 py-2 rounded hover:bg-blue-600 mb-2"><a href="../pages/signup.php">Sign Up</a></button>
-                <button class="bg-gray-200 text-gray-700 w-full px-4 py-2 rounded hover:bg-gray-300"><a href="../pages/login.php">Log In</a></button>
-            </div>
+        <div class="px-4 py-2">
+            <!-- Sign Up Button -->
+            <button class="bg-gradient-to-r from-yellow-500 to-orange-600 text-white w-full px-6 py-3 rounded-lg shadow-xl hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 mb-4">
+                <a href="../pages/signup.php" class="font-semibold text-lg">Sign Up</a>
+            </button>
+
+            <!-- Log In Button -->
+            <button class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white w-full px-6 py-3 rounded-lg shadow-xl hover:from-purple-700 hover:to-indigo-800 transition-all duration-300">
+                <a href="../pages/login.php" class="font-semibold text-lg">Log In</a>
+            </button>
+        </div>
+
+
         </div>
 
     </nav>
 
-    <main class="min-h-screen">
+    <main>
         <div>
             <div class=" w-full ">
                 <?php
@@ -76,13 +85,13 @@
     </main>
 
     
-    <footer class="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-300 py-10 p-4 mt-4">
+    <footer class="bg-black text-gray-300 py-10 p-4 mt-4">
         <div class="max-w-7xl mx-auto px-6 sm:px-8">
             <!-- Top Section -->
             <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-8">
                 <!-- Logo and Info -->
                 <div class="mb-6 md:mb-0 text-center md:text-left">
-                    <h1 class="text-2xl font-bold text-white">Hajar Walfi</h1>
+                    <h1 class="text-2xl font-bold  text-[#876a17]">Codebenders</h1>
                     <p class="mt-2 text-sm text-gray-400">Empowering business through creativity and innovation.</p>
                 </div>
                 <!-- Navigation Links -->
@@ -97,7 +106,7 @@
             <!-- Bottom Section -->
             <div class="mt-8 flex flex-col md:flex-row justify-between items-center">
                  <!-- Copyright -->
-                <p class="text-sm text-gray-400 text-center md:text-left">&copy; 2024 Hajar Walfi. All rights reserved.</p>
+                <p class="text-sm text-center  text-white md:text-left">&copy; 2024 Codebenders. All rights reserved.</p>
                 <!-- Social Media Icons -->
                 <div class="mt-4 md:mt-0 flex space-x-6">
                     <a href="https://facebook.com" class="text-gray-400 hover:text-white" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.988H8.294v-2.89h2.144V9.856c0-2.123 1.263-3.293 3.196-3.293.928 0 1.902.166 1.902.166v2.091h-1.071c-1.055 0-1.384.654-1.384 1.326v1.594h2.35l-.376 2.89h-1.974V21.878C18.343 21.128 22 16.991 22 12z"/></svg></a>

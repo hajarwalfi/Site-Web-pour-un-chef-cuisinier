@@ -3,8 +3,8 @@ session_start();
 include("../database.php");
 
 if(isset($_POST["statut"]))
-{  $id_reservation= trim(mysqli_real_escape_string($conn ,$_POST["id_reservation"]));
-   $statut= trim(mysqli_real_escape_string($conn ,$_POST["statut"]));
+{  $id_reservation =  intval($_POST["id_reservation"]);
+   $statut= htmlspecialchars(trim($_POST["statut"]));
 
   $sql  = "UPDATE reservation set statut = ? where id_reservation = ?" ; 
   $stmt = mysqli_prepare($conn  , $sql) ;
@@ -61,7 +61,7 @@ if(isset($_POST["statut"]))
                         mysqli_stmt_bind_result($stmt, $id, $date, $time, $people_number, $statut, $client, $title);
 
                         while (mysqli_stmt_fetch($stmt)) {
-                            echo "
+                            echo "                            
                             <tr class='border-b border-gray-200 hover:bg-gray-100'>
                                 <form action='' method='post'>
                                     <input type='hidden' name='id_reservation' value='{$id}'>
